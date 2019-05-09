@@ -13,6 +13,7 @@ export class RegisterPage implements OnInit {
   username: string = "";
   password: string = "";
   cpassword: string = "";
+  productId: string = "";
   loginstatus;
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -22,7 +23,8 @@ export class RegisterPage implements OnInit {
     const user = {
       username: this.username,
       password: this.password,
-      passwordconf: this.cpassword
+      passwordconf: this.cpassword,
+      productId: this.productId
     };
 
     this.authService.RegisterUser(user).subscribe(data => {

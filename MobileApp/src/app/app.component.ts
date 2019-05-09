@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Component } from "@angular/core";
+//import { Injectable } from "@angular/core";
+import { Platform } from "@ionic/angular";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html'
+  selector: "app-root",
+  templateUrl: "app.component.html"
 })
+//@Injectable()
+//export class GlobalProvider {
+//public ipAdress: string = "192.168.0.100";
+//public port: string = "3000";
+//}
 export class AppComponent {
   constructor(
     private platform: Platform,

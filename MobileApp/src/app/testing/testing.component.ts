@@ -6,7 +6,11 @@ import { ImageService } from "../services/imageService/image.service";
   styleUrls: ["./testing.component.scss"]
 })
 export class TestingComponent implements OnInit {
-  src = "http://localhost:3000/uploads/capture5cc304282640811d6785759e.png";
+  src =
+    "http://192.168.43.92:3000/uploads/capture" +
+    localStorage.getItem("productId") +
+    ".JPEG";
+  refreshStatus;
   constructor(private imageService: ImageService) {}
 
   ngOnInit() {}
@@ -31,5 +35,20 @@ export class TestingComponent implements OnInit {
         }
       });
     }
+  }
+
+  refresh() {
+    const user = {
+      productId: localStorage.getItem("productId")
+    };
+    this.imageService.refresh(user).subscribe(data => {
+      this.refreshStatus = data["message"];
+      if (data["succes"]) {
+        setTimeout(() => {
+          //this.ngOnInit();
+          window.location.reload();
+        }, 8000);
+      }
+    });
   }
 }

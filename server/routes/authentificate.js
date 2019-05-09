@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const User = require("../models/user");
-
+const Product = require("../models/product");
 router.get("/hello", (req, res) => {
   res.json({ succes: true, message: "hello" });
 });
@@ -22,21 +22,42 @@ router.post("/register", (req, res) => {
         if (req.body.password != req.body.passwordconf) {
           res.json({ succes: false, message: "passwords dont match" });
         } else {
-          let user = new User({
-            username: req.body.username,
-            password: req.body.password
-          });
-          user.save(err => {
-            if (err) {
-              if (err.code === 11000) {
-                res.json({ succes: false, message: "username already exists" });
+          if (!req.body.productId) {
+            res.json({ succes: false, message: "provide product Id" });
+          } else {
+            Product.findOne({ _id: req.body.productId }, (err, product) => {
+              if (err || product === null) {
+                res.json({
+                  succes: false,
+                  message: "the product id provided doesn t exist"
+                });
               } else {
-                res.json({ succes: false, message: "error occured" });
+                let user = new User({
+                  username: req.body.username,
+                  password: req.body.password,
+                  productId: req.body.productId
+                });
+                user.save(err => {
+                  if (err) {
+                    if (err.code === 11000) {
+                      res.json({
+                        succes: false,
+                        message: "username already exists"
+                      });
+                    } else {
+                      res.json({
+                        succes: false,
+                        message: "error occured",
+                        err
+                      });
+                    }
+                  } else {
+                    res.json({ succes: true, message: "user created" });
+                  }
+                });
               }
-            } else {
-              res.json({ succes: true, message: "user created" });
-            }
-          });
+            });
+          }
         }
       }
     }
@@ -66,7 +87,8 @@ router.post("/login", (req, res) => {
               res.json({
                 succes: true,
                 message: "login succesful",
-                userId: user._id
+                userId: user._id,
+                productId: user.productId
               });
             }
           }

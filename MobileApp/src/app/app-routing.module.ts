@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { TestingComponent } from "./testing/testing.component";
 const routes: Routes = [
   { path: "test", component: TestingComponent },
-  { path: "", redirectTo: "register", pathMatch: "full" },
+  { path: "", redirectTo: "login", pathMatch: "full" },
 
   { path: "login", loadChildren: "./login/login.module#LoginPageModule" },
   {

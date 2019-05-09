@@ -31,6 +31,7 @@ import { TestingComponent } from "./testing/testing.component";
   ],
   providers: [
     StatusBar,
+    //GlobalProvider,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const auth = require("./routes/authentificate.js");
 const photos = require("./routes/photoAPI.js");
+const com = require("./routes/com_bd.js");
+
 mongoose.Promise = global.Promise;
 app.use("/uploads", express.static("uploads"));
 
@@ -18,7 +20,8 @@ mongoose.connect(config.uri, err => {
 });
 app.use(
   cors({
-    origin: "http://localhost:8100"
+    // origin: "http://localhost:8101"
+    origin: "http://192.168.43.92:8100"
   })
 );
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +30,8 @@ app.use("/photoApi", photos);
 app.get("/sayhello", (req, res) => {
   res.send("hello");
 });
-app.listen(3000, err => {
+app.use("/com", com);
+app.listen(3000, "192.168.43.92", err => {
   if (err) {
     console.log("could not start server");
   } else {

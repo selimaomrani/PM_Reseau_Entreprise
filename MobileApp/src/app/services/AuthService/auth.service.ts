@@ -5,24 +5,31 @@ import {
   HttpRequest,
   HttpParams
 } from "@angular/common/http";
+//import { GlobalProvider } from "src/app/app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //console.log(this.provider.ipAdress);
+  }
 
   RegisterUser(user) {
     let httpParams = new HttpParams();
     Object.keys(user).forEach(function(key) {
       httpParams = httpParams.append(key, user[key]);
     });
-    return this.http.post("http://localhost:3000/auth/register", httpParams, {
-      headers: new HttpHeaders().set(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
-      )
-    });
+    return this.http.post(
+      "http://192.168.43.92:3000/auth/register",
+      httpParams,
+      {
+        headers: new HttpHeaders().set(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        )
+      }
+    );
   }
 
   LoginUser(user) {
@@ -30,7 +37,7 @@ export class AuthService {
     Object.keys(user).forEach(function(key) {
       httpParams = httpParams.append(key, user[key]);
     });
-    return this.http.post("http://localhost:3000/auth/login", httpParams, {
+    return this.http.post("http://192.168.43.92:3000/auth/login", httpParams, {
       headers: new HttpHeaders().set(
         "Content-Type",
         "application/x-www-form-urlencoded"

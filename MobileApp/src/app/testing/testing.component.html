@@ -1,9 +1,14 @@
-<div class="text-center">
-  <label class="btn btn-default">
-    Change profile picture
-    <input type="file" hidden (change)="onFileSelected($event)" />
-  </label>
-</div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Image </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-button fill="solid" expand="block" color="dark" (click)="refresh()">
+    Refresh
+  </ion-button>
+</ion-content>
 
 <div>
   <img src="{{ src }}" alt="" class="center" />
